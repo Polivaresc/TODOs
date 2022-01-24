@@ -1,3 +1,4 @@
-import getData from "./get-data";
+import getData from "./handler";
+import './style.css';
 
 getData()
