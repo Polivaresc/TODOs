@@ -18,19 +18,21 @@ export default function eventHandler() {
         const project = document.querySelector('#todo-project').value
 
         const todo = new Todo(title, description, dueDate, priority)
-        // addTodo(project, todo)
+        // project.addTodo(todo)
     })   
 
     const projectForm = document.querySelector('#project-form')
 
     projectForm.addEventListener('submit', (e) => {
         e.preventDefault()
+        projectForm.style.display = 'none'
 
         const title = document.querySelector('#project-title').value
         const description = document.querySelector('#project-description').value
 
         const project = new Project(title, description)
-        console.log(project)
+
         addProject(project)
+
     })
 }

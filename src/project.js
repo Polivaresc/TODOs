@@ -10,7 +10,6 @@ class Project {
         this.title = title
         this.description = description
         this.todos = []
-        console.log(title, description)
     }
 
     addTodo(projectTitle, todo) {
