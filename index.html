@@ -12,6 +12,25 @@
 </head>
 <body>
 
+    <header class="header">my-todos</header>
+
+    <main>
+        <div class="left-menu">
+            <div class="menu-titles"><span>Projects</span><button class="new-project">+</button></div>
+            <ul class="projects-list">
+                <li class="menu-project">Project default</li>
+                <li class="menu-project">Project one</li>
+                <li class="menu-project">Project two</li>
+            </ul>
+        </div>
+
+        <div id="project-form" style="display: none;">
+            fjdghkdfjhg
+        </div>
+
+    </main>
+
+
     <form id="todo-form" class="todo-form">
         <h3 class="form-title">Todo</h3>
 
@@ -35,6 +54,7 @@
             <option value="default" selected>Default</option>
         </select>
 
+        <button type="button" class="cancel-todo">Cancel</button>
         <button type="submit" class="submit-todo">Add Todo</button>
        
     </form>
