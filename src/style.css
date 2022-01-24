@@ -1,36 +1,110 @@
 body, button, input, select {
-    font-family: Helvetica, sans-serif;
+    font-family: 'Signika', sans-serif;
 }
 
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    font-family: "Great Vibes", cursive;
+    background-color: #14C9CB;
+    padding: 10px 40px;
+    font-size: 50px;
+}
+
+main {
+    display: flex;
+}
+
+/* START LEFT MENU */
+
+.left-menu {
+    flex-shrink: 0;
+    height: 100vh;
+    width: 250px;
+    padding: 30px 40px;
+    background-color: #2d363b;
+    color: #C9DDEE;
+}
+
+.new-project {
+    font-size: medium;
+    border: none;
+    border-radius: 100%;
+    font-weight: bold;
+    background-color: #14C9CB;
+    margin-left: 20px;
+}
+
+.new-project:hover {
+    background-color: #0FBED8;
+}
+
+.menu-titles {
+    color: #14C9CB;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+}
+
+.menu-project {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-project:hover {
+    background-color: #171c1f;
+}
+
+/* END LEFT MENU */
+
+/* START TODO FORM */
+
 .todo-form {
-    display: grid;
+    display: none;
     grid-template-columns: repeat(2, auto);
     gap: 20px;
     width: 20%;
     text-align: right;
-    color: #4d4a5a;
+    color: #53646d;
     padding: 50px;
 }
 
-.submit-todo {
-    grid-column: 1/3;
-    border: none;
+.submit-todo, .cancel-todo {
     padding: 10px;
-    color: white;
     font-size: medium;
-    background-image: linear-gradient(to right, #352083, #6A4CD4);
+    border: 2px solid #14C9CB;
+}
+
+.cancel-todo {
+    background: none;
+}
+
+.submit-todo {
+    color: white;
+    background-color: #14C9CB;
 }
 
 .submit-todo:hover {
-    background-image: linear-gradient(to right, #6A4CD4, #352083);
+    background-color: #0FBED8;
+    border-color: #0FBED8;
 }
 
 .form-title {
+    color: black;
     grid-column: 1/3;
     text-align: left;
-    color: #29113B;
     margin: 0px;
-    border-bottom: 1px solid #29113B;
+    border-bottom: 1px solid #C9DDEE;
 }
 
 .priority-checkbox {
@@ -38,16 +112,18 @@ body, button, input, select {
 }
 
 input, select {
-    color: #4d4a5a;
+    color: #53646d;
     padding: 5px;
     background: none;
-    border: 1px solid #D2CCF0;
+    border: 1px solid #C9DDEE;
 }
 
 input:focus, select:focus, input:hover, select:hover {
-    border-bottom: 2px solid #6A4CD4;
+    border-bottom: 2px solid #0FBED8;
 }
 
 select:hover, button:hover {
     cursor: pointer;
 }
+
+/* END TODO FORM */
