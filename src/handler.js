@@ -1,11 +1,10 @@
-import todoFactory from "./todo"
-import { addTodo } from "./project"
+import Todo from "./todo"
+import { addProject, Project } from "./project"
 import { Datepicker } from 'vanillajs-datepicker';
 
-const date = document.querySelector('#todo-dueDate')
-const datepicker = new Datepicker(date)
-
-export default function getData() {
+export default function eventHandler() {
+    const date = document.querySelector('#todo-dueDate')
+    const datepicker = new Datepicker(date)
 
     const todoForm = document.querySelector('#todo-form')
 
@@ -18,7 +17,20 @@ export default function getData() {
         const priority = document.querySelector('#todo-priority').value
         const project = document.querySelector('#todo-project').value
 
-        const todo = todoFactory(title, description, dueDate, priority)
-        addTodo(project, todo)
+        const todo = new Todo(title, description, dueDate, priority)
+        // addTodo(project, todo)
     })   
+
+    const projectForm = document.querySelector('#project-form')
+
+    projectForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const title = document.querySelector('#project-title').value
+        const description = document.querySelector('#project-description').value
+
+        const project = new Project(title, description)
+        console.log(project)
+        addProject(project)
+    })
 }

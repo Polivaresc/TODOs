@@ -1,12 +1,9 @@
-export default function todoFactory(title, description, dueDate, priority) {
-    const getTitle = () => title
-    const getDescription = () => description
-    const getDueDate = () => dueDate
-    const getPriority = () => priority
-    const getStatus = () => {
-        const checked = false
-        return checked
+export default class Todo {
+    constructor(title, description, dueDate, priority) {
+        this.title = title
+        this.description = description
+        this.dueDate = dueDate
+        this.priority = priority
+        this.status = false
     }
-
-    return {getTitle, getDescription, getDueDate, getPriority, getStatus}
 }

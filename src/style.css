@@ -40,7 +40,7 @@ main {
 }
 
 .new-project:hover {
-    background-color: #0FBED8;
+    background-color: #0b93a8;
 }
 
 .menu-titles {
@@ -67,9 +67,14 @@ main {
 
 /* END LEFT MENU */
 
+#project-form {
+    height: 200px;
+    padding: 40px 80px;
+}
+
 /* START TODO FORM */
 
-.todo-form {
+.template-form {
     display: none;
     grid-template-columns: repeat(2, auto);
     gap: 20px;
@@ -80,7 +85,7 @@ main {
 }
 
 .submit-todo, .cancel-todo {
-    padding: 10px;
+    padding: 10px 0;
     font-size: medium;
     border: 2px solid #14C9CB;
 }
@@ -89,14 +94,17 @@ main {
     background: none;
 }
 
+.cancel-todo:hover {
+    background-color: #14c8cb88;
+}
+
 .submit-todo {
-    color: white;
     background-color: #14C9CB;
 }
 
 .submit-todo:hover {
-    background-color: #0FBED8;
-    border-color: #0FBED8;
+    background-color: #0b93a8;
+    border-color: #0b93a8;
 }
 
 .form-title {
@@ -119,7 +127,7 @@ input, select {
 }
 
 input:focus, select:focus, input:hover, select:hover {
-    border-bottom: 2px solid #0FBED8;
+    border-bottom: 2px solid #14C9CB;
 }
 
 select:hover, button:hover {
