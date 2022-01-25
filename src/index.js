@@ -1,6 +1,8 @@
 import eventHandler from "./handler";
-import displayContent from './views';
+import { updateMenu, showProjectForm } from './views';
 import './style.css';
 
-displayContent()
+
+updateMenu()
+showProjectForm()
 eventHandler()

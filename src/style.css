@@ -2,6 +2,10 @@ body, button, input, select {
     font-family: 'Signika', sans-serif;
 }
 
+h1 {
+    margin: 0;
+}
+
 body {
     margin: 0;
     display: flex;
@@ -32,15 +36,16 @@ main {
 
 .new-project {
     font-size: medium;
-    border: none;
+    border: 2px solid #C9DDEE;
+    color: #C9DDEE;
     border-radius: 100%;
     font-weight: bold;
-    background-color: #14C9CB;
+    background: none;
     margin-left: 20px;
 }
 
 .new-project:hover {
-    background-color: #0b93a8;
+    transform: scale(1.1);
 }
 
 .menu-titles {
@@ -72,7 +77,32 @@ main {
     padding: 40px 80px;
 }
 
+/* START PROJECT PAGE */
+
+#project-page {
+    padding: 40px 80px;
+}
+
+.new-todo {
+    font-size: medium;
+    border: 2px solid black;
+    border-radius: 100%;
+    font-weight: bold;
+    background: none;
+}
+
+.new-todo:hover {
+    transform: scale(1.1);
+}
+
+/* END PROJECT PAGE */
+
 /* START TODO FORM */
+
+#todo-form {
+    height: 300px;
+    padding: 40px 80px;
+}
 
 .template-form {
     display: none;
@@ -84,25 +114,25 @@ main {
     padding: 50px;
 }
 
-.submit-todo, .cancel-todo {
+.submit-button, .cancel-button {
     padding: 10px 0;
     font-size: medium;
     border: 2px solid #14C9CB;
 }
 
-.cancel-todo {
+.cancel-button {
     background: none;
 }
 
-.cancel-todo:hover {
+.cancel-button:hover {
     background-color: #14c8cb88;
 }
 
-.submit-todo {
+.submit-button {
     background-color: #14C9CB;
 }
 
-.submit-todo:hover {
+.submit-button:hover {
     background-color: #0b93a8;
     border-color: #0b93a8;
 }
