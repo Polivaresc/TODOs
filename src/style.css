@@ -81,6 +81,7 @@ main {
 
 #project-page {
     padding: 40px 80px;
+    /* display: none; */
 }
 
 .new-todo {
