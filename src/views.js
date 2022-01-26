@@ -46,15 +46,22 @@ function updateMenu() {
 function showProject() {
     const allProjects = document.querySelector('.projects-list').childNodes 
 
-    allProjects.forEach(p => {
-        p.addEventListener('click', () => {
-            const project = projects[p.id]
-            createProjectPage(project)
+    // if (allProjects.length > 1) {
+        allProjects.forEach(p => {
+            p.addEventListener('click', () => {
+                const project = projects[p.id]
+                createProjectPage(project)
+            })
         })
-    })
+    // } else {
+    //     console.log('hjs')
+    //     const project = projects[0]
+    //     createProjectPage(project)
+    // }
 }
 
 function createProjectPage(project) {
+
     const projectPage = document.querySelector('#project-page')
     projectPage.innerHTML = ''
 

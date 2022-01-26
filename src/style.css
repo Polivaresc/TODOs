@@ -79,8 +79,9 @@ main {
 
 /* START PROJECT PAGE */
 
-#project-page {
+.project-page {
     padding: 40px 80px;
+    display: none;
 }
 
 .new-todo {
