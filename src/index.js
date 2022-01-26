@@ -1,8 +1,9 @@
 import './style.css';
-import { showProjectForm, createProject, showProjectPage } from "./handler";
+import { projectListeners } from "./handler";
+import { displayMenu, displayPage, showProjectPage } from './views';
 
-showProjectForm()
-createProject()
+projectListeners()
 showProjectPage()
-// updateMenu()
+displayMenu()
+displayPage()
 // eventHandler()

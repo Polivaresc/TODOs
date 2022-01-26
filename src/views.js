@@ -1,108 +1,52 @@
-import { projects } from "./project"
+import { getAllProjects, getCurrentProject, setCurrentProject } from "./project"
 
 function showProjectForm() {
-    const newProject = document.querySelector('.new-project')
-    const projectForm = document.querySelector('#project-form')
-
-    newProject.addEventListener('click', () => {
-        projectForm.style.display = 'grid'
-    })
-
-    const cancelProject = document.querySelector('#cancel-project')
-
-    cancelProject.addEventListener('click', () => {
-        projectForm.style.display = 'none'
-    })
+    document.querySelector('#project-form').style.display = 'grid'
+    document.querySelector('#project-page').style.display = 'none'   
 }
 
-function showTodoForm(newTodoButton) {
-    const todoForm = document.querySelector('#todo-form')
-    
-    newTodoButton.addEventListener('click', () => {
-        todoForm.style.display = 'grid'
-    })
-
-    const cancelTodo = document.querySelector('#cancel-todo')
-
-    cancelTodo.addEventListener('click', () => {
-        todoForm.style.display = 'none'
-    })
+function showProjectPage() {
+    document.querySelector('#project-form').style.display = 'none'
+    document.querySelector('#project-page').style.display = 'block'
 }
 
-function updateMenu() {
+function displayMenu() {
     const projectsList = document.querySelector('.projects-list')
     projectsList.innerHTML = ''
-    
+
+    const projects = getAllProjects()
+
     projects.forEach(p => {
-        const listProject = document.createElement('li')
-        const id = projects.indexOf(p)
-        listProject.setAttribute('id', id)
-        listProject.classList.add('menu-project')
-        listProject.textContent = p.title
-        projectsList.append(listProject)
+        const newProject = document.createElement('li')
+        newProject.setAttribute('project-id', p.id)
+        newProject.setAttribute('class', 'menu-project')
+        newProject.textContent = p.title
+        newProject.addEventListener('click', function() {
+            setCurrentProject(p)
+            displayPage()
+        })
+
+        projectsList.appendChild(newProject)
     })
 }
 
-function showProject() {
-    const allProjects = document.querySelector('.projects-list').childNodes 
+function displayPage() {
+    const projectTitle = document.querySelector('#project-title')
+    const projectDescription = document.querySelector('#project-description')
+    const projectTodos = document.querySelector('#project-todos')
 
-    // if (allProjects.length > 1) {
-        allProjects.forEach(p => {
-            p.addEventListener('click', () => {
-                const project = projects[p.id]
-                createProjectPage(project)
-            })
-        })
-    // } else {
-    //     console.log('hjs')
-    //     const project = projects[0]
-    //     createProjectPage(project)
-    // }
-}
+    const currentProject = getCurrentProject()
 
-function createProjectPage(project) {
+    projectTitle.textContent = currentProject.title
+    projectDescription.textContent = currentProject.description
+    projectTodos.innerHTML = ''
 
-    const projectPage = document.querySelector('#project-page')
-    projectPage.innerHTML = ''
-
-    const title = document.createElement('h1')
-    title.textContent = project.title
-
-    const newTodoButton = document.createElement('button')
-    newTodoButton.textContent = '+'
-    newTodoButton.classList.add('new-todo')
-
-    const description = document.createElement('p')
-    description.textContent = project.description
-
-    const todoList = document.createElement('ul')
-    todoList.setAttribute('id', 'todo-list')
-
-    if (!project.todos) {
-        project.todos.forEach(t => {
-            const todo = document.createElement('li')
-            todo.textContent = t
-            todoList.appendChild(todo)
-        })
-    } else {
-        const noTodos = document.createElement('li')
-        noTodos.textContent = 'This project does not have todos yet'
-        todoList.appendChild(noTodos)
-    }
-
-    projectPage.append(title, description, newTodoButton, todoList)
-    showTodoForm(newTodoButton)
-}
-
-function updateProject(project) {
-    const todoList = document.querySelector('#todo-list')
-    todoList.innerHTML = ''
-
-    project.todos.forEach(t => {
-        const listEntry = document.createElement('li')
-        listEntry.textContent = t.title
-        todoList.appendChild(listEntry)
+    currentProject.todos.forEach(todo => {
+        const li = document.createElement('li')
+        li.textContent = todo.title
+        projectTodos.appendChild(li)
     })
+    showProjectPage()
 }
 
-export {showProjectForm, updateMenu, showProject, updateProject}
+export { showProjectForm, showProjectPage, displayMenu, displayPage }
