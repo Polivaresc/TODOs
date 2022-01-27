@@ -1,7 +1,9 @@
 import { getAllProjects, getCurrentProject, setCurrentProject } from "./project"
 
 function showProjectForm() {
+    clearForms()
     document.querySelector('#project-form').style.display = 'grid'
+    document.querySelector('#todo-form').style.display = 'none'
     document.querySelector('#project-page').style.display = 'none'   
 }
 
@@ -53,6 +55,7 @@ function displayPage() {
 }
 
 function showTodoForm() {
+    clearForms()
     document.querySelector('#todo-form').style.display = 'grid'
 }
 
@@ -62,6 +65,11 @@ function markCurrentProject(currentProject) {
 
     const currentPage = Array.from(projectsList).find(p => parseInt(p.getAttribute('project-id')) === currentProject.id)
     currentPage.classList.add('selected-project')
+}
+
+function clearForms() {
+    document.querySelectorAll('input').forEach(i => i.value = '')
+    document.getElementById('todo-priority').checked = false
 }
 
 export { showProjectForm, showProjectPage, displayMenu, displayPage, showTodoForm }

@@ -75,7 +75,7 @@ main {
 
 #project-form {
     height: 200px;
-    padding: 40px 80px;
+    padding: 40px 0;
 }
 
 /* START PROJECT PAGE */
@@ -170,3 +170,61 @@ select:hover, button:hover {
 }
 
 /* END TODO FORM */
+
+/* START MODAL */
+
+.modal-overlay {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-box {
+    background-color: #2d363b;
+    color: #C9DDEE;
+    font-size: large;
+    text-align: center;
+    margin: auto;
+    padding: 40px 60px;
+    border: 2px solid #C9DDEE;
+}
+
+.modal-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.yes-button, .no-button {
+    font-size: large;
+    border: 2px solid #14C9CB;
+    padding: 15px 0;
+}
+
+.no-button {
+    background-color: white;
+}
+
+.yes-button {
+    background-color: #14C9CB;
+}
+
+.no-button:hover {
+    border-color: #14C9CB;
+    background-color: #14C9CB;
+}
+
+.yes-button:hover {
+    border-color: #0b93a8;
+    background-color: #0b93a8;
+}
+
+/* END MODAL */
