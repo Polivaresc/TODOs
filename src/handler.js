@@ -1,5 +1,5 @@
 import Todo from "./todo"
-import { addProject, Project, addTodo, setCurrentProject, getCurrentProject } from "./project"
+import { addProject, deleteProject, Project, addTodo, setCurrentProject, getCurrentProject } from "./project"
 import { Datepicker } from 'vanillajs-datepicker';
 import { sub } from "date-fns";
 import { displayMenu, displayPage, showProjectForm, showProjectPage, showTodoForm } from "./views";
@@ -25,6 +25,28 @@ function projectListeners() {
         displayMenu()
         displayPage()
     })
+
+    const modal = document.querySelector('.modal-overlay')
+    const modalTitle = document.querySelector('#modal-title')
+
+    const deleteButton = document.querySelector('.delete-project')
+    deleteButton.addEventListener('click', () => {
+        const currentProject = getCurrentProject()
+        modalTitle.textContent = currentProject.title + '?'
+        modal.style.display = 'flex'
+    })
+
+    const noDelete = document.querySelector('.no-button')
+    noDelete.addEventListener('click', () => {
+        modal.style.display = 'none'
+    })
+
+    const yesDelete = document.querySelector('.yes-button')
+    yesDelete.addEventListener('click', () => {
+        deleteProject()
+        modal.style.display = 'none'
+        location.reload()
+    })
 }
 
 function todoListeners() {
@@ -35,7 +57,7 @@ function todoListeners() {
     cancelTodo.addEventListener('click', showProjectPage)
 
     const date = document.querySelector('#todo-dueDate')
-    const datepicker = new Datepicker(date)
+    new Datepicker(date)
 
     const todoForm = document.querySelector('#todo-form')
     todoForm.addEventListener('submit', (e) => {
@@ -43,7 +65,7 @@ function todoListeners() {
 
         const title = document.querySelector('#todo-title').value
         const description = document.querySelector('#todo-description').value
-        const dueDate = datepicker.value
+        const dueDate = date.value
         const priority = document.querySelector('#todo-priority').checked
 
         const todo = new Todo(title, description, dueDate, priority)
@@ -54,6 +76,11 @@ function todoListeners() {
         addTodo(currentProjectId, todo)
         displayPage()
     })
+
+
+    // const priorityIcons = document.querySelectorAll('.priority-icon')
+    
+    // const statusIcons = document.querySelectorAll('.status-icon')
 }
 
 

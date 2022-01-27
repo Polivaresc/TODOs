@@ -1,4 +1,4 @@
-let projects = [{id: 0, title: 'default', description: '', todos: [{title: 'todo1'}]}]
+let projects = [{id: 0, title: 'default', description: '', todos: []}]
 let currentProjectId = 0
 
 class Project {
@@ -40,4 +40,11 @@ function addTodo(projectId, todo) {
     projects.find(p => p.id === projectId).todos.push(todo)
 }
 
-export { addProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects }
+function deleteProject() {
+    const currentProject = getCurrentProject()
+    const index = projects.indexOf(currentProject)
+    projects.splice(index, 1)
+    persistProjects()
+}
+
+export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects }

@@ -88,6 +88,22 @@ main {
     padding: 40px 100px;
 }
 
+.project-header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.delete-project {
+    font-size: large;
+    color: #53646d9a;
+}
+
+.delete-project:hover {
+    cursor: pointer;
+    color: #53646d;
+}
+
 .new-todo {
     font-size: medium;
     border: 2px solid black;
@@ -171,6 +187,37 @@ select:hover, button:hover {
 
 /* END TODO FORM */
 
+/* START TODO LIST */
+
+#project-todos {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 10px;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.priority {
+    color: #14C9CB;
+}
+
+.check:hover, .priority:hover {
+    cursor: pointer;
+}
+
+.date {
+    color: #53646d9a;
+    font-size: small;
+}
+/* END TODO LIST */
+
 /* START MODAL */
 
 .modal-overlay {
@@ -218,8 +265,7 @@ select:hover, button:hover {
 }
 
 .no-button:hover {
-    border-color: #14C9CB;
-    background-color: #14C9CB;
+    background-color: #14c8cb88;
 }
 
 .yes-button:hover {

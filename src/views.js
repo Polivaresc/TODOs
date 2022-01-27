@@ -46,9 +46,7 @@ function displayPage() {
     projectTodos.innerHTML = ''
 
     currentProject.todos.forEach(todo => {
-        const li = document.createElement('li')
-        li.textContent = todo.title
-        projectTodos.appendChild(li)
+        displayTodos(todo, projectTodos)
     })
     showProjectPage()
     markCurrentProject(currentProject)
@@ -70,6 +68,41 @@ function markCurrentProject(currentProject) {
 function clearForms() {
     document.querySelectorAll('input').forEach(i => i.value = '')
     document.getElementById('todo-priority').checked = false
+}
+
+function displayTodos(todo, projectTodos) {
+    const li = document.createElement('li')
+    li.setAttribute('class', 'list-item')
+
+    const priorityIcon = document.createElement('i')
+    if (todo.priority) {
+        priorityIcon.setAttribute('class', 'fas fa-star priority')
+    } else {
+        priorityIcon.setAttribute('class', 'far fa-star priority')
+    }
+    const priority = document.createElement('span')
+    priority.setAttribute('class', 'priority-icon')
+    priority.appendChild(priorityIcon)
+
+    const statusIcon = document.createElement('i')
+    if (todo.status) {
+        statusIcon.setAttribute('class', 'fas fa-check-square check')
+    } else {
+        statusIcon.setAttribute('class', 'far fa-square check')
+    }
+    const status = document.createElement('span')
+    status.setAttribute('class', 'status-icon')
+    status.appendChild(statusIcon)
+
+    const title = document.createElement('span')
+    title.textContent = todo.title
+
+    const date = document.createElement('span')
+    date.textContent = todo.dueDate
+    date.setAttribute('class', 'date')
+
+    li.append(priority, status, title, date)
+    projectTodos.appendChild(li)
 }
 
 export { showProjectForm, showProjectPage, displayMenu, displayPage, showTodoForm }
