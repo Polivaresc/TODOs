@@ -66,9 +66,10 @@ main {
     padding: 10px;
 }
 
-.menu-project:hover {
+.menu-project:hover, .selected-project {
     background-color: #171c1f;
 }
+
 
 /* END LEFT MENU */
 
@@ -78,10 +79,13 @@ main {
 }
 
 /* START PROJECT PAGE */
+#page-section {
+    display: flex;
+    justify-content: space-around;
+}
 
 #project-page {
-    padding: 40px 80px;
-    /* display: none; */
+    padding: 40px 100px;
 }
 
 .new-todo {

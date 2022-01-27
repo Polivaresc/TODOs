@@ -1,8 +1,8 @@
 import Todo from "./todo"
-import { addProject, Project, addTodo, setCurrentProject } from "./project"
+import { addProject, Project, addTodo, setCurrentProject, getCurrentProject } from "./project"
 import { Datepicker } from 'vanillajs-datepicker';
 import { sub } from "date-fns";
-import { displayMenu, displayPage, showProjectForm, showProjectPage } from "./views";
+import { displayMenu, displayPage, showProjectForm, showProjectPage, showTodoForm } from "./views";
 
 function projectListeners() {
     const newProjectButton = document.querySelector('.new-project')
@@ -27,46 +27,34 @@ function projectListeners() {
     })
 }
 
-export { projectListeners }
+function todoListeners() {
+    const newTodoButton = document.querySelector('.new-todo')
+    newTodoButton.addEventListener('click', showTodoForm)
+
+    const cancelTodo = document.querySelector('#cancel-todo')
+    cancelTodo.addEventListener('click', showProjectPage)
+
+    const date = document.querySelector('#todo-dueDate')
+    const datepicker = new Datepicker(date)
+
+    const todoForm = document.querySelector('#todo-form')
+    todoForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const title = document.querySelector('#todo-title').value
+        const description = document.querySelector('#todo-description').value
+        const dueDate = datepicker.value
+        const priority = document.querySelector('#todo-priority').checked
+
+        const todo = new Todo(title, description, dueDate, priority)
+        
+        const currentProject = getCurrentProject()
+        const currentProjectId = currentProject.id
+
+        addTodo(currentProjectId, todo)
+        displayPage()
+    })
+}
 
 
-// function showTodoForm(newTodoButton) {
-//     const todoForm = document.querySelector('#todo-form')
-    
-//     newTodoButton.addEventListener('click', () => {
-//         todoForm.style.display = 'grid'
-//     })
-
-//     const cancelTodo = document.querySelector('#cancel-todo')
-
-//     cancelTodo.addEventListener('click', () => {
-//         todoForm.style.display = 'none'
-//     })
-// }
-
-// export default function eventHandler() {
-//     const date = document.querySelector('#todo-dueDate')
-//     const datepicker = new Datepicker(date)
-
-
-//     const todoForm = document.querySelector('#todo-form')
-//     todoForm.addEventListener('submit', (e) => {
-//         e.preventDefault()
-
-//         const title = document.querySelector('#todo-title').value
-//         const description = document.querySelector('#todo-description').value
-//         const dueDate = datepicker.value
-//         const priority = document.querySelector('#todo-priority').checked
-
-//         const todo = new Todo(title, description, dueDate, priority)
-
-//         const projectsList = document.querySelector('.projects-list').childNodes 
-//         console.log(projectsList)  
-//         projectsList.forEach(p => {
-//             const id = p.getAttribute('id')
-//             const project = projects[id]
-//             addTodo(project.title, todo)
-//             updateProject(project)
-//         })
-//     })   
-// }
+export { projectListeners, todoListeners }

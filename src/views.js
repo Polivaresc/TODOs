@@ -7,6 +7,7 @@ function showProjectForm() {
 
 function showProjectPage() {
     document.querySelector('#project-form').style.display = 'none'
+    document.querySelector('#todo-form').style.display = 'none'
     document.querySelector('#project-page').style.display = 'block'
 }
 
@@ -25,9 +26,10 @@ function displayMenu() {
             setCurrentProject(p)
             displayPage()
         })
-
         projectsList.appendChild(newProject)
+        
     })
+    
 }
 
 function displayPage() {
@@ -47,6 +49,19 @@ function displayPage() {
         projectTodos.appendChild(li)
     })
     showProjectPage()
+    markCurrentProject(currentProject)
 }
 
-export { showProjectForm, showProjectPage, displayMenu, displayPage }
+function showTodoForm() {
+    document.querySelector('#todo-form').style.display = 'grid'
+}
+
+function markCurrentProject(currentProject) {
+    const projectsList = document.querySelector('.projects-list').childNodes
+    projectsList.forEach(p => p.classList.remove('selected-project'))
+
+    const currentPage = Array.from(projectsList).find(p => parseInt(p.getAttribute('project-id')) === currentProject.id)
+    currentPage.classList.add('selected-project')
+}
+
+export { showProjectForm, showProjectPage, displayMenu, displayPage, showTodoForm }

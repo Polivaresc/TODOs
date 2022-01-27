@@ -36,8 +36,8 @@ function setCurrentProject(project) {
     currentProjectId = project.id
 }
 
-function addTodo(projectTitle, todo) {
-    projects.find(p => p.title === projectTitle).todos.push(todo)
+function addTodo(projectId, todo) {
+    projects.find(p => p.id === projectId).todos.push(todo)
 }
 
 export { addProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects }
