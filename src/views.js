@@ -1,5 +1,5 @@
 import { getAllProjects, getCurrentProject, setCurrentProject } from "./project"
-import { changePriority, changeStatus } from "./handler"
+import { changeStatus, changePriority} from "./handler"
 
 function showProjectForm() {
     clearForms()
@@ -71,28 +71,35 @@ function clearForms() {
     document.getElementById('todo-priority').checked = false
 }
 
+
 function displayTodos(todo, projectTodos) {
     const li = document.createElement('li')
     li.setAttribute('class', 'list-item')
 
     const title = document.createElement('span')
     title.textContent = todo.title
-    title.addEventListener('click', showTodo)
+    // title.addEventListener('click', showTodo)
 
     const date = document.createElement('span')
     date.textContent = todo.dueDate
     date.setAttribute('class', 'date')
 
     const priorityIcon = document.createElement('i')
+    const priority = document.createElement('span')
+    priority.appendChild(priorityIcon)
+    priority.setAttribute('todo-id', todo.id)
+    priority.addEventListener('click', changePriority)
     if (todo.priority) {
-        priorityIcon.setAttribute('class', 'fas fa-star priority')
+        priorityIcon.classList = 'fas fa-star priority'
     } else {
-        priorityIcon.setAttribute('class', 'far fa-star priority')
+        priorityIcon.classList = 'far fa-star priority'
     }
-    priorityIcon.setAttribute('todo-id', todo.id)
-    priorityIcon.addEventListener('click', changePriority)
-
+    
     const statusIcon = document.createElement('i')
+    const status = document.createElement('span')
+    status.appendChild(statusIcon)
+    status.setAttribute('todo-id', todo.id)
+    status.addEventListener('click', changeStatus)
     if (todo.status) {
         statusIcon.setAttribute('class', 'fas fa-check-square check')
         title.style['text-decoration'] = 'line-through'
@@ -100,32 +107,31 @@ function displayTodos(todo, projectTodos) {
         statusIcon.setAttribute('class', 'far fa-square check')
         title.style['text-decoration'] = 'none'
     }
-    statusIcon.setAttribute('todo-id', todo.id)
-    statusIcon.addEventListener('click', changeStatus)
-
-
-    li.append(priorityIcon, statusIcon, title, date)
+   
+    li.append(priority, status, title, date)
     projectTodos.appendChild(li)
 }
 
-function showEditTodo(title, description, date, priority) {
-    document.querySelector('#todo-form').style.display = 'grid'
-    document.querySelectorAll('input').disabled = true
-}
 
-function showTodo(todo) {
+
+// function showEditTodo(title, description, date, priority) {
+//     document.querySelector('#todo-form').style.display = 'grid'
+//     document.querySelectorAll('input').disabled = true
+// }
+
+// function showTodo(todo) {
     
-    const title = document.querySelector('#todo-title').value = todo.title
+//     const title = document.querySelector('#todo-title').value = todo.title
 
-    const description = document.querySelector('#todo-description').value = todo.description
+//     const description = document.querySelector('#todo-description').value = todo.description
 
-    const date = document.querySelector('#todo-dueDate').value = todo.dueDate
+//     const date = document.querySelector('#todo-dueDate').value = todo.dueDate
    
-    const priority = document.querySelector('#todo-priority').checked = todo.priority
+//     const priority = document.querySelector('#todo-priority').checked = todo.priority
 
-    showEditTodo(title, description, date, priority)
+//     showEditTodo(title, description, date, priority)
     
-}
+// }
 
 
 

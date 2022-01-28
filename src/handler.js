@@ -1,5 +1,5 @@
 import Todo from "./todo"
-import { addProject, deleteProject, Project, addTodo, setCurrentProject, getCurrentProject, getTodo } from "./project"
+import { addProject, deleteProject, Project, addTodo, setCurrentProject, getCurrentProject, getTodo, updateTodo } from "./project"
 import { Datepicker } from 'vanillajs-datepicker';
 import { sub } from "date-fns";
 import { displayMenu, displayPage, showProjectForm, showProjectPage, showTodoForm } from "./views";
@@ -83,36 +83,28 @@ function todoListeners() {
     })
 }
 
+function setTodoId() {
+    const currentProject = getCurrentProject()
+    const todosArray = currentProject.todos
+    const newId = (todosArray.length ? Math.max(...todosArray.map(t => t.id)) : 0)+1
+    return newId
+}
+
 function changePriority(e) {
-    const icon = e.target
+    const icon = (e.target).parentNode
+    console.log(icon)
     const todoId = icon.getAttribute('todo-id')
     const todo = getTodo(todoId)
     todo.priority = !todo.priority
+    updateTodo()
 }
 
 function changeStatus(e) {
-    const icon = e.target
+    const icon = (e.target).parentNode
     const todoId = icon.getAttribute('todo-id')
     const todo = getTodo(todoId)
     todo.status = !todo.status
+    updateTodo()
 }
-
-function setTodoId() {
-    const idInput = document.querySelector('#todo-id')
-
-    const currentProject = getCurrentProject()
-    const todosArray = currentProject.todos
-
-    todosArray.forEach(t => {
-        if(isNaN(t.id)) {
-            t.id = 0
-        }
-    })
-
-    idInput.value = Math.max(...todosArray.map(t => t.id))+1
-    
-    return idInput.value
-}
-
 
 export { projectListeners, todoListeners, changePriority, changeStatus }

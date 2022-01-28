@@ -1,3 +1,5 @@
+import { displayPage } from "./views"
+
 let projects = [{id: 0, title: 'default', description: '', todos: []}]
 let currentProjectId = 0
 
@@ -38,6 +40,7 @@ function setCurrentProject(project) {
 
 function addTodo(projectId, todo) {
     projects.find(p => p.id === projectId).todos.push(todo)
+    persistProjects()
 }
 
 function deleteProject() {
@@ -49,23 +52,27 @@ function deleteProject() {
 
 function getTodo(todoId) {
     const project = getCurrentProject()
+    console.log(project.todos)
     const index = projects.indexOf(project)
-    const todo = projects[index].todos.find(t => t.id === todoId)
+    const todo = projects[index].todos.find(t => t.id === parseInt(todoId))
+    console.log(parseInt(todoId))
+    console.log(todo)
     return todo
 }
 
 function deleteTodo(todoId) {
     const currentProject = getCurrentProject()
     const todosArray = currentProject.todos
-    const todo = todosArray.find(t => t.id === todoId)
+    const todo = todosArray.find(t => t.id === parseInt(todoId))
     const index = todosArray.indexOf(todo)
     todosArray.splice(index, 1)
     persistProjects()
 }
 
 
-// function updateTodo(todo) {
-//     getTodo(todo.id)
-// }
+function updateTodo() {
+    persistProjects()
+    displayPage()
+}
 
-export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects, getTodo, deleteTodo }
+export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects, getTodo, deleteTodo, updateTodo }
