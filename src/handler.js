@@ -1,5 +1,5 @@
 import Todo from "./todo"
-import { addProject, deleteProject, Project, addTodo, setCurrentProject, getCurrentProject } from "./project"
+import { addProject, deleteProject, Project, addTodo, setCurrentProject, getCurrentProject, getTodo } from "./project"
 import { Datepicker } from 'vanillajs-datepicker';
 import { sub } from "date-fns";
 import { displayMenu, displayPage, showProjectForm, showProjectPage, showTodoForm } from "./views";
@@ -67,8 +67,13 @@ function todoListeners() {
         const description = document.querySelector('#todo-description').value
         const dueDate = date.value
         const priority = document.querySelector('#todo-priority').checked
+        const id = setTodoId()
 
-        const todo = new Todo(title, description, dueDate, priority)
+        console.log(id)
+
+        const todo = new Todo(id, title, description, dueDate, priority)
+
+        console.log(todo)
         
         const currentProject = getCurrentProject()
         const currentProjectId = currentProject.id
@@ -76,12 +81,38 @@ function todoListeners() {
         addTodo(currentProjectId, todo)
         displayPage()
     })
+}
 
+function changePriority(e) {
+    const icon = e.target
+    const todoId = icon.getAttribute('todo-id')
+    const todo = getTodo(todoId)
+    todo.priority = !todo.priority
+}
 
-    // const priorityIcons = document.querySelectorAll('.priority-icon')
+function changeStatus(e) {
+    const icon = e.target
+    const todoId = icon.getAttribute('todo-id')
+    const todo = getTodo(todoId)
+    todo.status = !todo.status
+}
+
+function setTodoId() {
+    const idInput = document.querySelector('#todo-id')
+
+    const currentProject = getCurrentProject()
+    const todosArray = currentProject.todos
+
+    todosArray.forEach(t => {
+        if(isNaN(t.id)) {
+            t.id = 0
+        }
+    })
+
+    idInput.value = Math.max(...todosArray.map(t => t.id))+1
     
-    // const statusIcons = document.querySelectorAll('.status-icon')
+    return idInput.value
 }
 
 
-export { projectListeners, todoListeners }
+export { projectListeners, todoListeners, changePriority, changeStatus }

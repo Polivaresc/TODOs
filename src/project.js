@@ -47,4 +47,25 @@ function deleteProject() {
     persistProjects()
 }
 
-export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects }
+function getTodo(todoId) {
+    const project = getCurrentProject()
+    const index = projects.indexOf(project)
+    const todo = projects[index].todos.find(t => t.id === todoId)
+    return todo
+}
+
+function deleteTodo(todoId) {
+    const currentProject = getCurrentProject()
+    const todosArray = currentProject.todos
+    const todo = todosArray.find(t => t.id === todoId)
+    const index = todosArray.indexOf(todo)
+    todosArray.splice(index, 1)
+    persistProjects()
+}
+
+
+// function updateTodo(todo) {
+//     getTodo(todo.id)
+// }
+
+export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects, getTodo, deleteTodo }
