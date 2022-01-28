@@ -1,5 +1,5 @@
-import { getAllProjects, getCurrentProject, setCurrentProject } from "./project"
-import { changeStatus, changePriority} from "./handler"
+import { getAllProjects, getCurrentProject, setCurrentProject, updateTodo } from "./project"
+import { changeStatus, changePriority, changeDate} from "./handler"
 
 function showProjectForm() {
     clearForms()
@@ -47,7 +47,7 @@ function displayPage() {
     projectTodos.innerHTML = ''
 
     currentProject.todos.forEach(todo => {
-        displayTodos(todo, projectTodos)
+        displayTodo(todo, projectTodos)
     })
     showProjectPage()
     markCurrentProject(currentProject)
@@ -72,22 +72,28 @@ function clearForms() {
 }
 
 
-function displayTodos(todo, projectTodos) {
+function displayTodo(todo, projectTodos) {
     const li = document.createElement('li')
     li.setAttribute('class', 'list-item')
+    li.setAttribute('todo-id', todo.id)
 
     const title = document.createElement('span')
     title.textContent = todo.title
-    // title.addEventListener('click', showTodo)
 
-    const date = document.createElement('span')
-    date.textContent = todo.dueDate
+    const description = document.createElement('span')
+    description.textContent = todo.description
+    description.setAttribute('class', 'description')
+    // const date = document.createElement('input')
+    // date.setAttribute('value', todo.dueDate)
+    const date = document.createElement('input')
     date.setAttribute('class', 'date')
+    date.setAttribute('value', todo.dueDate)
+    date.addEventListener('click', changeDate, {once: true})
+    
 
     const priorityIcon = document.createElement('i')
     const priority = document.createElement('span')
     priority.appendChild(priorityIcon)
-    priority.setAttribute('todo-id', todo.id)
     priority.addEventListener('click', changePriority)
     if (todo.priority) {
         priorityIcon.classList = 'fas fa-star priority'
@@ -98,7 +104,6 @@ function displayTodos(todo, projectTodos) {
     const statusIcon = document.createElement('i')
     const status = document.createElement('span')
     status.appendChild(statusIcon)
-    status.setAttribute('todo-id', todo.id)
     status.addEventListener('click', changeStatus)
     if (todo.status) {
         statusIcon.setAttribute('class', 'fas fa-check-square check')
@@ -108,31 +113,9 @@ function displayTodos(todo, projectTodos) {
         title.style['text-decoration'] = 'none'
     }
    
-    li.append(priority, status, title, date)
+    li.append(priority, status, date, title, description)
     projectTodos.appendChild(li)
 }
-
-
-
-// function showEditTodo(title, description, date, priority) {
-//     document.querySelector('#todo-form').style.display = 'grid'
-//     document.querySelectorAll('input').disabled = true
-// }
-
-// function showTodo(todo) {
-    
-//     const title = document.querySelector('#todo-title').value = todo.title
-
-//     const description = document.querySelector('#todo-description').value = todo.description
-
-//     const date = document.querySelector('#todo-dueDate').value = todo.dueDate
-   
-//     const priority = document.querySelector('#todo-priority').checked = todo.priority
-
-//     showEditTodo(title, description, date, priority)
-    
-// }
-
 
 
 

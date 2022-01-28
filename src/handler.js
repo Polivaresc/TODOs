@@ -57,54 +57,56 @@ function todoListeners() {
     cancelTodo.addEventListener('click', showProjectPage)
 
     const date = document.querySelector('#todo-dueDate')
-    new Datepicker(date)
+    const datepicker = new Datepicker(date, {format: 'dd/mm/yyyy'})
+    date.addEventListener('changeDate', function() {
+        datepicker.hide()
+        date.value = Datepicker.formatDate(datepicker.getDate(), 'dd/mm/yyyy')
+    })
 
     const todoForm = document.querySelector('#todo-form')
     todoForm.addEventListener('submit', (e) => {
         e.preventDefault()
+        const currentProject = getCurrentProject()
+        const currentProjectId = currentProject.id
 
         const title = document.querySelector('#todo-title').value
         const description = document.querySelector('#todo-description').value
         const dueDate = date.value
         const priority = document.querySelector('#todo-priority').checked
-        const id = setTodoId()
 
-        console.log(id)
+        const id = (currentProject.todos.length ? Math.max(...currentProject.todos.map(t => t.id)) : 0)+1
 
         const todo = new Todo(id, title, description, dueDate, priority)
-
-        console.log(todo)
-        
-        const currentProject = getCurrentProject()
-        const currentProjectId = currentProject.id
 
         addTodo(currentProjectId, todo)
         displayPage()
     })
 }
 
-function setTodoId() {
-    const currentProject = getCurrentProject()
-    const todosArray = currentProject.todos
-    const newId = (todosArray.length ? Math.max(...todosArray.map(t => t.id)) : 0)+1
-    return newId
-}
-
-function changePriority(e) {
-    const icon = (e.target).parentNode
-    console.log(icon)
-    const todoId = icon.getAttribute('todo-id')
+function changePriority() {
+    const todoId = this.parentNode.getAttribute('todo-id')
     const todo = getTodo(todoId)
     todo.priority = !todo.priority
     updateTodo()
 }
 
-function changeStatus(e) {
-    const icon = (e.target).parentNode
-    const todoId = icon.getAttribute('todo-id')
+function changeStatus() {
+    const todoId = this.parentNode.getAttribute('todo-id')
     const todo = getTodo(todoId)
     todo.status = !todo.status
     updateTodo()
 }
 
-export { projectListeners, todoListeners, changePriority, changeStatus }
+function changeDate() {
+    const todoId = this.parentNode.getAttribute('todo-id')
+    const todo = getTodo(todoId)
+    const datepicker = new Datepicker(this, {format: 'dd/mm/yyyy'})
+    datepicker.show()
+    this.addEventListener('changeDate', function() {
+        datepicker.hide()
+        todo.dueDate = Datepicker.formatDate(datepicker.getDate(), 'dd/mm/yyyy')
+        updateTodo(todo)
+    })
+}
+
+export { projectListeners, todoListeners, changePriority, changeStatus, changeDate }

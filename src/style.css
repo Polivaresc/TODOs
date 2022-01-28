@@ -212,9 +212,28 @@ select:hover, button:hover {
     cursor: pointer;
 }
 
-.date {
+input.date {
     color: #53646d9a;
     font-size: small;
+    border: none;
+    background: none;
+    width: 20%;
+    text-align: center;
+}
+
+input.date:hover {
+    cursor: pointer;
+    border: none;
+}
+
+input.date:active {
+    border: none;
+}
+
+.description {
+    color: #53646d9a;
+    font-size: small;
+    font-style: italic;
 }
 /* END TODO LIST */
 

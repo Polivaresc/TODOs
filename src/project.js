@@ -52,11 +52,7 @@ function deleteProject() {
 
 function getTodo(todoId) {
     const project = getCurrentProject()
-    console.log(project.todos)
-    const index = projects.indexOf(project)
-    const todo = projects[index].todos.find(t => t.id === parseInt(todoId))
-    console.log(parseInt(todoId))
-    console.log(todo)
+    const todo = project.todos.find(t => t.id === parseInt(todoId))
     return todo
 }
 
