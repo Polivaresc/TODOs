@@ -1,5 +1,5 @@
-import { getAllProjects, getCurrentProject, setCurrentProject, updateTodo } from "./project"
-import { changeStatus, changePriority, changeDate} from "./handler"
+import { getAllProjects, getCurrentProject, setCurrentProject } from "./project"
+import { changeStatus, changePriority, editTodo} from "./handler"
 
 function showProjectForm() {
     clearForms()
@@ -30,9 +30,7 @@ function displayMenu() {
             displayPage()
         })
         projectsList.appendChild(newProject)
-        
     })
-    
 }
 
 function displayPage() {
@@ -71,7 +69,6 @@ function clearForms() {
     document.getElementById('todo-priority').checked = false
 }
 
-
 function displayTodo(todo, projectTodos) {
     const li = document.createElement('li')
     li.setAttribute('class', 'list-item')
@@ -79,17 +76,15 @@ function displayTodo(todo, projectTodos) {
 
     const title = document.createElement('span')
     title.textContent = todo.title
+    title.setAttribute('class', 'title')
 
     const description = document.createElement('span')
     description.textContent = todo.description
     description.setAttribute('class', 'description')
-    // const date = document.createElement('input')
-    // date.setAttribute('value', todo.dueDate)
-    const date = document.createElement('input')
+
+    const date = document.createElement('span')
+    date.textContent = todo.dueDate
     date.setAttribute('class', 'date')
-    date.setAttribute('value', todo.dueDate)
-    date.addEventListener('click', changeDate, {once: true})
-    
 
     const priorityIcon = document.createElement('i')
     const priority = document.createElement('span')
@@ -112,8 +107,14 @@ function displayTodo(todo, projectTodos) {
         statusIcon.setAttribute('class', 'far fa-square check')
         title.style['text-decoration'] = 'none'
     }
+
+    const editIcon = document.createElement('i')
+    editIcon.setAttribute('class', 'far fa-edit edit-icon')
+    const edit = document.createElement('span')
+    edit.appendChild(editIcon)
+    edit.addEventListener('click', editTodo)
    
-    li.append(priority, status, date, title, description)
+    li.append(priority, status, edit, date, title, description)
     projectTodos.appendChild(li)
 }
 

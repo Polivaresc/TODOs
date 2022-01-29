@@ -94,12 +94,12 @@ main {
     gap: 40px;
 }
 
-.delete-project {
+.delete-button {
     font-size: large;
     color: #53646d9a;
 }
 
-.delete-project:hover {
+.delete-button:hover {
     cursor: pointer;
     color: #53646d;
 }
@@ -201,7 +201,8 @@ select:hover, button:hover {
 .list-item {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
+    margin-bottom: 10px;
 }
 
 .priority {
@@ -212,22 +213,9 @@ select:hover, button:hover {
     cursor: pointer;
 }
 
-input.date {
+.date {
     color: #53646d9a;
     font-size: small;
-    border: none;
-    background: none;
-    width: 20%;
-    text-align: center;
-}
-
-input.date:hover {
-    cursor: pointer;
-    border: none;
-}
-
-input.date:active {
-    border: none;
 }
 
 .description {
@@ -235,6 +223,16 @@ input.date:active {
     font-size: small;
     font-style: italic;
 }
+
+.edit-icon {
+    color: #53646d9a;
+}
+
+.edit-icon:hover {
+    cursor: pointer;
+    color: #53646d;
+}
+
 /* END TODO LIST */
 
 /* START MODAL */

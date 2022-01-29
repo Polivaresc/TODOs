@@ -1,7 +1,6 @@
 import { displayPage } from "./views"
 
 let projects = [{id: 0, title: 'default', description: '', todos: []}]
-let currentProjectId = 0
 
 class Project {
     constructor (title, description) {
@@ -31,11 +30,12 @@ function getAllProjects() {
 }
 
 function getCurrentProject() {
-    return projects.find(p => p.id === currentProjectId)
+    const currentProjectId = localStorage.getItem('currentProjectId') ?? 0
+    return projects.find(p => p.id === parseInt(currentProjectId))
 }
 
 function setCurrentProject(project) {
-    currentProjectId = project.id
+    localStorage.setItem('currentProjectId', project.id)
 }
 
 function addTodo(projectId, todo) {
@@ -68,7 +68,6 @@ function deleteTodo(todoId) {
 
 function updateTodo() {
     persistProjects()
-    displayPage()
 }
 
 export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects, getTodo, deleteTodo, updateTodo }

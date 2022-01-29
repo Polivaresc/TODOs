@@ -59,7 +59,7 @@
             </form>
 
             <div id="project-page">
-                <div class='project-header'><h1 id="project-title">Default</h1><span class="delete-project"><i class="fas fa-trash"></i></span></div>
+                <div class='project-header'><h1 id="project-title">Default</h1><span class="delete-button" id="delete-project"><i class="fas fa-trash"></i></span></div>
                 <p id="project-description">Description</p>
                 <button class="new-todo">+</button>
                 <ul id="project-todos">
@@ -76,8 +76,8 @@
 
     <div class="modal-overlay" book="">
         <div class="modal-box">
-            <p>Are you sure you want to delete the project</p>
-            <p id='modal-title'>PROJECT.TITLE? / this todo?</p>
+            <p>Are you sure you want to delete</p>
+            <p><span id='modal-title'>PROJECT.TITLE / TODO.TITLE</span>?</p>
             <div class="modal-buttons">
                 <button class="no-button">NO</button>
                 <button class="yes-button">YES</button>
