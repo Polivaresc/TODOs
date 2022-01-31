@@ -68,6 +68,7 @@ function deleteTodo(todoId) {
 
 function updateTodo() {
     persistProjects()
+    displayPage()
 }
 
 export { addProject, deleteProject, Project, addTodo, getCurrentProject, setCurrentProject, getAllProjects, getTodo, deleteTodo, updateTodo }
