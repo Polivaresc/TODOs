@@ -1,4 +1,5 @@
 import { displayPage } from './views';
+import { firestore } from './firebase';
 
 let projects = [{
 	id: 0, title: 'default', description: '', todos: [],
