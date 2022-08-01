@@ -38,7 +38,7 @@ function projectListeners() {
 		const project = new Project(title, description);
 
 		addProject(project);
-		setCurrentProject(project);
+		setCurrentProject(project.id);
 		displayMenu();
 		displayPage();
 	});

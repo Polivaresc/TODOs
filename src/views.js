@@ -30,7 +30,7 @@ function displayMenu() {
 		newProject.setAttribute('class', 'menu-project');
 		newProject.textContent = p.title;
 		newProject.addEventListener('click', () => {
-			setCurrentProject(p);
+			setCurrentProject(p.id);
 			displayPage();
 		});
 		projectsList.appendChild(newProject);

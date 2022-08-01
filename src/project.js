@@ -1,35 +1,54 @@
+import { setDoc } from 'firebase/firestore';
 import { displayPage } from './views';
-import { firestore } from './firebase';
+import {
+	firestore, collection, addDoc, getDocs, doc,
+} from './firebase';
 
-let projects = [{
-	id: 0, title: 'default', description: '', todos: [],
-}];
+let projects = [];
 
 class Project {
 	constructor(title, description) {
-		this.id = Math.max(...projects.map((project) => project.id)) + 1;
+		this.id = projects.length ? Math.max(...projects.map((project) => project.id)) + 1 : 0;
 		this.title = title;
 		this.description = description;
 		this.todos = [];
 	}
 }
 
-function persistProjects() {
-	localStorage.setItem('allProjects', JSON.stringify(projects));
+//async function persistProject(project) {
+//	await setDoc(doc(firestore, 'projects', 'project-' + project.id), project);
+//}
+
+
+
+
+function persist(project) {
+	localStorage.setItem('project-' + project.id, JSON.stringify(project));
+}
+
+function remove(project) {
+	localStorage.removeItem('project-' + project.id);
 }
 
 function retrieveProjects() {
-	projects = JSON.parse(localStorage.getItem('allProjects')) ?? projects;
+	projects = Object.entries(localStorage)
+	.filter(function(val) { 
+		return val[0].includes('project-')
+	}, {})
+	.map(function(val) {
+		return JSON.parse(val[1])
+	})
+	.sort(function(a, b) {
+		return a.id > b.id ? 1 : -1
+	});
+
+	if (!projects.length) {
+		addProject(new Project('Default', 'test'))
+	}
 }
 
-function addProject(project) {
-	projects.push(project);
-	persistProjects();
-}
-
-function getAllProjects() {
-	retrieveProjects();
-	return projects;
+function setCurrentProject(projectId) {
+	localStorage.setItem('currentProjectId', projectId);
 }
 
 function getCurrentProject() {
@@ -37,20 +56,22 @@ function getCurrentProject() {
 	return projects.find((p) => p.id === parseInt(currentProjectId));
 }
 
-function setCurrentProject(project) {
-	localStorage.setItem('currentProjectId', project.id);
+function getAllProjects() {
+	retrieveProjects();
+	return projects;
 }
 
-function addTodo(projectId, todo) {
-	projects.find((p) => p.id === projectId).todos.push(todo);
-	persistProjects();
+function addProject(project) {
+	projects.push(project);
+	persist(project);
 }
 
 function deleteProject() {
 	const currentProject = getCurrentProject();
 	const index = projects.indexOf(currentProject);
 	projects.splice(index, 1);
-	persistProjects();
+	remove(currentProject);
+	setCurrentProject(0)
 }
 
 function getTodo(todoId) {
@@ -59,17 +80,24 @@ function getTodo(todoId) {
 	return todo;
 }
 
+function addTodo(projectId, todo) {
+	const project = projects.find((p) => p.id === projectId)
+	project.todos.push(todo);
+	persist(project);
+}
+
 function deleteTodo(todoId) {
 	const currentProject = getCurrentProject();
 	const todosArray = currentProject.todos;
 	const todo = todosArray.find((t) => t.id === parseInt(todoId));
 	const index = todosArray.indexOf(todo);
 	todosArray.splice(index, 1);
-	persistProjects();
+	persist(currentProject);
 }
 
 function updateTodo() {
-	persistProjects();
+	const currentProject = getCurrentProject();
+	persist(currentProject);
 	displayPage();
 }
 
