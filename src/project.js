@@ -1,7 +1,6 @@
-import { setDoc } from 'firebase/firestore';
 import { displayPage } from './views';
 import {
-	firestore, collection, addDoc, getDocs, doc,
+	firestore, collection, deleteDoc, setDoc, getDocs, doc,
 } from './firebase';
 
 let projects = [];
@@ -15,22 +14,33 @@ class Project {
 	}
 }
 
-//async function persistProject(project) {
-//	await setDoc(doc(firestore, 'projects', 'project-' + project.id), project);
-//}
-
-
-
-
-function persist(project) {
-	localStorage.setItem('project-' + project.id, JSON.stringify(project));
+async function persist(project) {
+	const projectObj = {...project}
+	projectObj.todos = projectObj.todos.map((todo) => todo = {...todo})
+	await setDoc(doc(firestore, 'projects', 'project-' + project.id), projectObj);
 }
 
-function remove(project) {
+async function retrieveAll() {
+	projects = []
+	const projectsSnapshot = await getDocs(collection(firestore, 'projects'))
+	projectsSnapshot.forEach((doc) => {
+		projects.push(doc.data())
+	});
+}
+
+async function remove(project) {
+	await deleteDoc(doc(firestore, 'projects', 'project-' + project.id))
+}
+
+/* function remove(project) {
 	localStorage.removeItem('project-' + project.id);
-}
+} */
 
-function retrieveProjects() {
+/* function persist(project) {
+	localStorage.setItem('project-' + project.id, JSON.stringify(project));
+} */
+
+/* function retrieveProjects() {
 	projects = Object.entries(localStorage)
 	.filter(function(val) { 
 		return val[0].includes('project-')
@@ -45,7 +55,7 @@ function retrieveProjects() {
 	if (!projects.length) {
 		addProject(new Project('Default', 'test'))
 	}
-}
+} */
 
 function setCurrentProject(projectId) {
 	localStorage.setItem('currentProjectId', projectId);
@@ -56,8 +66,8 @@ function getCurrentProject() {
 	return projects.find((p) => p.id === parseInt(currentProjectId));
 }
 
-function getAllProjects() {
-	retrieveProjects();
+async function getAllProjects() {
+	await retrieveAll()
 	return projects;
 }
 
@@ -66,11 +76,11 @@ function addProject(project) {
 	persist(project);
 }
 
-function deleteProject() {
+async function deleteProject() {
 	const currentProject = getCurrentProject();
 	const index = projects.indexOf(currentProject);
 	projects.splice(index, 1);
-	remove(currentProject);
+	await remove(currentProject);
 	setCurrentProject(0)
 }
 

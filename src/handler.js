@@ -10,6 +10,7 @@ import {
 	getTodo,
 	updateTodo,
 	deleteTodo,
+	getAllProjects,
 } from './project';
 import {
 	displayMenu,
@@ -39,8 +40,9 @@ function projectListeners() {
 
 		addProject(project);
 		setCurrentProject(project.id);
-		displayMenu();
-		displayPage();
+		displayMenu().then(() => {
+			displayPage();
+		})
 	});
 
 	const modal = document.querySelector('.modal-overlay');
@@ -59,8 +61,8 @@ function projectListeners() {
 		const yesDelete = document.querySelector('.yes-button');
 		yesDelete.addEventListener(
 			'click',
-			() => {
-				deleteProject();
+			async () => {
+				await deleteProject();
 				modal.style.display = 'none';
 				window.location.reload();
 			},

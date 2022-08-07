@@ -9,5 +9,6 @@ import { displayMenu, displayPage, showProjectPage } from './views';
 projectListeners();
 todoListeners();
 showProjectPage();
-displayMenu();
-displayPage();
+displayMenu().then(() => {
+    displayPage();
+});

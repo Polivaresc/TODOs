@@ -18,11 +18,11 @@ function showProjectPage() {
 	document.querySelector('#project-page').style.display = 'block';
 }
 
-function displayMenu() {
+async function displayMenu() {
 	const projectsList = document.querySelector('.projects-list');
 	projectsList.innerHTML = '';
 
-	const projects = getAllProjects();
+	const projects = await getAllProjects();
 
 	projects.forEach((p) => {
 		const newProject = document.createElement('li');
@@ -41,12 +41,19 @@ function displayPage() {
 	const projectTitle = document.querySelector('#project-title');
 	const projectDescription = document.querySelector('#project-description');
 	const projectTodos = document.querySelector('#project-todos');
+	const deleteButton = document.querySelector('#delete-project');
 
 	const currentProject = getCurrentProject();
 
 	projectTitle.textContent = currentProject.title;
 	projectDescription.textContent = currentProject.description;
 	projectTodos.innerHTML = '';
+
+	if (currentProject.id === 0) {
+		deleteButton.style.display = 'none'
+	} else {
+		deleteButton.style.display = 'block'
+	}
 
 	currentProject.todos.forEach((todo) => {
 		displayTodo(todo, projectTodos);
