@@ -32,6 +32,7 @@ async function remove(project) {
 	await deleteDoc(doc(firestore, 'projects', 'project-' + project.id))
 }
 
+//
 /* function remove(project) {
 	localStorage.removeItem('project-' + project.id);
 } */
@@ -56,6 +57,7 @@ async function remove(project) {
 		addProject(new Project('Default', 'test'))
 	}
 } */
+
 
 function setCurrentProject(projectId) {
 	localStorage.setItem('currentProjectId', projectId);
